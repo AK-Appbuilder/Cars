@@ -15,8 +15,6 @@ interface ArticleDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertArticles(article: List<Article>)
 
-
     @Query("SELECT * FROM Article ")
     fun loadArticles(): Flowable<List<Article>>
-
 }

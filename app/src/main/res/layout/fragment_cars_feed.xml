@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+		xmlns:android="http://schemas.android.com/apk/res/android">
+	
+	<data>
+		
+		<import type="android.view.View"/>
+		<import type="com.sevenpeakssoftware.cars.repository.Status"/>
+		<import type="com.sevenpeakssoftware.cars.repository.Resource"/>
+		<import type="com.sevenpeakssoftware.cars.viewmodel.ArticleViewModel"/>
+		
+		<variable
+				name="viewmodel"
+				type="ArticleViewModel"/>
+	</data>
+	
+	<androidx.coordinatorlayout.widget.CoordinatorLayout
+			android:id="@+id/coordinatorLayout"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent">
+		
+		<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+				android:id="@+id/refresh_layout"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				app:onRefreshListener="@{viewmodel::refresh}"
+				app:refreshing="@{viewmodel.dataLoading}">
+			
+			<RelativeLayout
+					android:id="@+id/tasksContainer"
+					android:layout_width="match_parent"
+					android:layout_height="match_parent"
+					android:clickable="true"
+					android:orientation="vertical">
+				
+				
+				<androidx.recyclerview.widget.RecyclerView
+						android:id="@+id/articles_list"
+						android:layout_width="match_parent"
+						android:layout_height="match_parent"
+						app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+						app:items="@{viewmodel.articlesResource}"/>
+				
+				<TextView
+						android:id="@+id/noArticles"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_gravity="center"
+						android:layout_centerInParent="true"
+						android:padding="16dp"
+						android:visibility="@{viewmodel.articlesResource.data.isEmpty() ? View.VISIBLE : View.GONE}"
+						android:text="@{viewmodel.articlesResource.message ?? @string/no_articles}"/>
+			
+			</RelativeLayout>
+		
+		</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+	
+	</androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+</layout>

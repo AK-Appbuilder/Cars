@@ -2,33 +2,27 @@ package com.sevenpeakssoftware.cars.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
-import com.google.gson.Gson
-import com.sevenpeakssoftware.cars.data.Article
-import com.sevenpeakssoftware.cars.repository.Resource
-import com.sevenpeakssoftware.cars.viewmodel.ArticleViewModel
+import androidx.fragment.app.Fragment
+import com.sevenpeakssoftware.cars.R
+import dagger.android.AndroidInjection
+import dagger.android.DispatchingAndroidInjector
+import dagger.android.support.HasSupportFragmentInjector
+import javax.inject.Inject
 
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), HasSupportFragmentInjector {
 
+    @Inject
+    lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Fragment>
 
-    lateinit var viewModel: ArticleViewModel
+    override fun supportFragmentInjector(): DispatchingAndroidInjector<Fragment> {
+        return dispatchingAndroidInjector
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
-        setContentView(com.sevenpeakssoftware.cars.R.layout.activity_main)
-
-
-
-        viewModel = ViewModelProviders.of(this).get(ArticleViewModel::class.java)
-
-        viewModel.getArticles().observe(this, Observer<Resource<List<Article>>> {
-
-            Log.d("MainActivity", Gson().toJson(it.data))
-
-//            Log.d("MainActivity", it?.message)
-        })
+        setContentView(R.layout.activity_main)
     }
+
 }

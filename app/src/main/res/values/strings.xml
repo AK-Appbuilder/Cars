@@ -1,3 +1,7 @@
 <resources>
-    <string name="app_name">Cars</string>
+	<string name="app_name">Cars</string>
+	<string name="no_articles">No Car articles Found</string>
+	<string name="title_preview_text">Greatness starts when you don\'t stop</string>
+	<string name="publish_date_preview_text">29 November, 2016</string>
+	<string name="ingress_preview_text">The Audi Q7 is the result of an ambitious idea: never cease to improve.</string>
 </resources>

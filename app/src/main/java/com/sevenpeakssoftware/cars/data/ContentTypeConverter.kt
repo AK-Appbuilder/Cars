@@ -7,8 +7,7 @@ import com.google.gson.reflect.TypeToken
 
 
 class ContentTypeConverter {
-
-    val gson: Gson = Gson()
+    private val gson: Gson = Gson()
 
     @TypeConverter
     fun stringToContent(json: String?): List<Content>? {
@@ -17,7 +16,6 @@ class ContentTypeConverter {
             val type = object : TypeToken<List<Content>>() {}.type
             gson.fromJson(json, type)
         }
-
     }
 
     @TypeConverter

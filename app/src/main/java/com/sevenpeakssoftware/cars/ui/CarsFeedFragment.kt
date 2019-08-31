@@ -1,6 +1,63 @@
 package com.sevenpeakssoftware.cars.ui
 
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
+import com.sevenpeakssoftware.cars.databinding.FragmentCarsFeedBinding
+import com.sevenpeakssoftware.cars.viewmodel.ArticleViewModel
+import dagger.android.AndroidInjection
+import dagger.android.support.AndroidSupportInjection
+import timber.log.Timber
+import javax.inject.Inject
 
-class CarsFeedFragment : Fragment() {
+class CarsFeedFragment: Fragment() {
+
+    @Inject
+    lateinit var viewModelFactory: ViewModelProvider.Factory
+
+    val viewModel: ArticleViewModel by viewModels {
+        viewModelFactory
+    }
+
+    private lateinit var viewDataBinding: FragmentCarsFeedBinding
+
+    private lateinit var articlesAdapter: ArticlesAdapter
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        AndroidSupportInjection.inject(this)
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        viewDataBinding = FragmentCarsFeedBinding.inflate(inflater, container, false).apply {
+            viewmodel = viewModel
+        }
+
+        return viewDataBinding.root
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        viewDataBinding.lifecycleOwner = this.viewLifecycleOwner
+        setupArticlesAdapter()
+    }
+
+    private fun setupArticlesAdapter() {
+        val viewModel = viewDataBinding.viewmodel
+        if (viewModel != null) {
+            articlesAdapter = ArticlesAdapter()
+            viewDataBinding.articlesList.adapter = articlesAdapter
+        } else {
+            Timber.w("ViewModel not initialized ")
+        }
+    }
+
 }

@@ -29,9 +29,19 @@ buildscript {
         room_version = "2.2.0-beta01"
 
         logging_version = "3.4.1"
+
+        appcompatVersion = '1.1.0-beta01'
+        activityVersion = '1.0.0-beta01'
+        cardviewVersion = '1.0.0'
+        fragmentVersion = "1.1.0-beta01"
+
+        timberVersion = "4.7.1"
+
+        dagger = "2.17"
     }
 
     repositories {
+        mavenCentral()
         google()
         jcenter()
         
