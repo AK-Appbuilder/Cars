@@ -14,8 +14,7 @@ abstract class NetworkBoundSource<LocalType, RemoteType>(emitter: FlowableEmitte
             .subscribe { it -> emitter.onNext(it) }
 
         createCall()
-            .subscribeOn(Schedulers.newThread())
-            .observeOn(Schedulers.newThread())
+            .subscribeOn(Schedulers.io())
             .subscribe(
                 { response ->
                     firstDataDisposable.dispose()

@@ -28,7 +28,7 @@ class ArticleViewModel @Inject constructor( val repo: ArticlesRepo) : ViewModel(
         .switchMap(loadFreshData) { input ->
             LiveDataReactiveStreams.fromPublisher(
                 repo.loadArticles()
-                    .subscribeOn(Schedulers.newThread())
+                    .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .doOnNext {
                         _dataLoading.value = it.status == Status.LOADING

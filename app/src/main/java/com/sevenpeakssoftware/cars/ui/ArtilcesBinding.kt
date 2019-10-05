@@ -30,24 +30,12 @@ fun setItems(listView: RecyclerView, resouce: Resource<List<Article>>?) {
 
 @BindingAdapter("app:loadImage", "app:imageUrl")
 fun loadImageWithGlide(imageView:ImageView, container:View, imageUrl:String) {
-
-    val defaultValue = 0x000000
     Glide.with(container.context)
         .asBitmap()
         .load(imageUrl)
-        .into(object : CustomTarget<Bitmap>(){
-            override fun onResourceReady(bitmap: Bitmap, transition: Transition<in Bitmap>?) {
-
-                imageView.setImageBitmap(bitmap)
-                Palette.from(bitmap).generate { palette ->
-                    palette?.getLightMutedColor(defaultValue)?.let { it -> container.setBackgroundColor(it) }
-                }
-            }
-
-            override fun onLoadCleared(placeholder: Drawable?) {
-            }
-        })
+        .into(imageView)
     }
+
 
 @BindingAdapter("app:dateTime")
 fun setDateTime(textView: TextView, datetime: String) {
