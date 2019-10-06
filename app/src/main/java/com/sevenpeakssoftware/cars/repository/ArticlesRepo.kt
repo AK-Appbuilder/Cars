@@ -3,11 +3,13 @@ package com.sevenpeakssoftware.cars.repository
 import com.sevenpeakssoftware.cars.api.*
 import com.sevenpeakssoftware.cars.data.Article
 import com.sevenpeakssoftware.cars.db.ArticleDao
+import com.sevenpeakssoftware.cars.testing.OpenForTesting
 import io.reactivex.Flowable
 import io.reactivex.BackpressureStrategy
 import javax.inject.Inject
 
 
+@OpenForTesting
 class ArticlesRepo @Inject constructor(
     private val dao: ArticleDao,
     private val api: ArticleApiService ) {
@@ -27,6 +29,7 @@ class ArticlesRepo @Inject constructor(
             }
 
         }, BackpressureStrategy.BUFFER)
+
     }
 
 }
