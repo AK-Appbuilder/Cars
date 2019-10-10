@@ -4,34 +4,25 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 import com.sevenpeakssoftware.cars.databinding.FragmentCarsFeedBinding
 import com.sevenpeakssoftware.cars.viewmodel.ArticleViewModel
-import dagger.android.AndroidInjection
-import dagger.android.support.AndroidSupportInjection
+import dagger.android.support.DaggerFragment
 import timber.log.Timber
 import javax.inject.Inject
 
-class CarsFeedFragment: Fragment() {
+class CarsFeedFragment: DaggerFragment() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
-    val viewModel: ArticleViewModel by viewModels {
-        viewModelFactory
-    }
+   val viewModel by viewModels<ArticleViewModel> { viewModelFactory }
 
     private lateinit var viewDataBinding: FragmentCarsFeedBinding
 
     private lateinit var articlesAdapter: ArticlesAdapter
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        AndroidSupportInjection.inject(this)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

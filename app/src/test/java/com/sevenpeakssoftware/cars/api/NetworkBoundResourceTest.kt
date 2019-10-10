@@ -2,24 +2,18 @@ package com.sevenpeakssoftware.cars.api
 
 import com.sevenpeakssoftware.cars.repository.NetworkBoundSource
 import com.sevenpeakssoftware.cars.repository.Resource
-import com.sevenpeakssoftware.cars.utils.mock
-import io.reactivex.*
-import io.reactivex.Flowable.create
+import io.reactivex.BackpressureStrategy
+import io.reactivex.Flowable
+import io.reactivex.Single
 import io.reactivex.android.plugins.RxAndroidPlugins
-import io.reactivex.internal.operators.flowable.FlowableCreate
 import io.reactivex.plugins.RxJavaPlugins
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subscribers.DisposableSubscriber
 import org.hamcrest.CoreMatchers
 import org.hamcrest.MatcherAssert
 import org.junit.Before
-import org.junit.Rule
 import org.junit.Test
-import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito
-import org.mockito.Mockito.atLeast
-import org.reactivestreams.Subscription
-import retrofit2.Response
 import java.util.concurrent.atomic.AtomicReference
 
 class NetworkBoundResourceTest {

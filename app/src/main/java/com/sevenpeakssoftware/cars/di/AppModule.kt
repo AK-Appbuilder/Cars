@@ -1,11 +1,14 @@
 package com.sevenpeakssoftware.cars.di
 
-import android.app.Application
+import android.content.Context
 import android.util.Log
 import androidx.room.Room
 import com.sevenpeakssoftware.cars.api.ArticleApiService
 import com.sevenpeakssoftware.cars.db.ArticleDao
 import com.sevenpeakssoftware.cars.db.ArticleDb
+import com.sevenpeakssoftware.cars.repository.ArticlesRepo
+import com.sevenpeakssoftware.cars.repository.DefaultArticlesRepo
+import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import okhttp3.HttpUrl
@@ -17,7 +20,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
 
-@Module(includes = [ViewModelModule::class])
+@Module(includes = [AppModule.ApplicationModuleBinds::class])
 class AppModule {
 
     private  val BASE_URL = "https://www.apphusetreach.no/application/119267/"
@@ -44,9 +47,9 @@ class AppModule {
 
     @Singleton
     @Provides
-    fun provideDb(app: Application): ArticleDb {
+    fun provideDb(context: Context): ArticleDb {
         return Room
-            .databaseBuilder(app, ArticleDb::class.java, "article.db")
+            .databaseBuilder(context, ArticleDb::class.java, "article.db")
             .fallbackToDestructiveMigration()
             .build()
     }
@@ -57,4 +60,12 @@ class AppModule {
         return db.articleDao()
     }
 
+    @Module
+    abstract class ApplicationModuleBinds {
+
+        @Singleton
+        @Binds
+        abstract fun bindRepository(repo: DefaultArticlesRepo): ArticlesRepo
+
+    }
 }

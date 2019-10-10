@@ -1,13 +1,9 @@
 package com.sevenpeakssoftware.cars.api
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.google.common.truth.Truth
-import com.sevenpeakssoftware.cars.utils.mock
-import okhttp3.HttpUrl
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
 import okio.Okio
-import org.bouncycastle.crypto.tls.ConnectionEnd.client
 import org.hamcrest.core.Is.`is`
 import org.junit.After
 import org.junit.Assert.assertThat

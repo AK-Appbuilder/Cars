@@ -1,7 +1,6 @@
-package com.sevenpeakssoftware.cars.di
-
+package com.sevenpeakssoftware.cars
 import android.content.Context
-import com.sevenpeakssoftware.cars.AppController
+import com.sevenpeakssoftware.cars.di.FragmentModule
 import dagger.BindsInstance
 import dagger.Component
 import dagger.android.AndroidInjector
@@ -12,14 +11,13 @@ import javax.inject.Singleton
 @Component(
     modules = [
         AndroidSupportInjectionModule::class,
-        AppModule::class,
+        TestAppModule::class,
         FragmentModule::class]
 )
-interface AppComponent : AndroidInjector<AppController> {
+interface TestAppComponent  : AndroidInjector<TestAppController> {
 
     @Component.Factory
     interface Factory {
-        fun create(@BindsInstance applicationContext: Context): AppComponent
+        fun create(@BindsInstance applicationContext: Context): TestAppComponent
     }
-
 }

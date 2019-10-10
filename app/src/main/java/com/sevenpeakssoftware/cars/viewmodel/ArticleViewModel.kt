@@ -2,7 +2,6 @@ package com.sevenpeakssoftware.cars.viewmodel
 
 import androidx.lifecycle.*
 import com.sevenpeakssoftware.cars.data.Article
-import com.sevenpeakssoftware.cars.db.ArticleDb
 import com.sevenpeakssoftware.cars.repository.ArticlesRepo
 import com.sevenpeakssoftware.cars.repository.Resource
 import com.sevenpeakssoftware.cars.repository.Status

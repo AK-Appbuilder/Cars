@@ -1,17 +1,20 @@
 package com.sevenpeakssoftware.cars
 
 import android.app.Activity
-import android.app.Application
 import com.jakewharton.threetenabp.AndroidThreeTen
 import com.sevenpeakssoftware.cars.di.DaggerAppComponent
+import dagger.android.AndroidInjector
+import dagger.android.DaggerApplication
 import dagger.android.DispatchingAndroidInjector
-import dagger.android.HasActivityInjector
 import timber.log.Timber
 import javax.inject.Inject
 
 
-class AppController : Application(), HasActivityInjector {
+open class AppController : DaggerApplication() {
 
+    override fun applicationInjector(): AndroidInjector<out DaggerApplication> {
+        return DaggerAppComponent.factory().create(applicationContext)
+    }
 
     @Inject
     lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Activity>
@@ -25,12 +28,7 @@ class AppController : Application(), HasActivityInjector {
             Timber.plant(Timber.DebugTree())
         }
 
-
-        DaggerAppComponent.builder()
-            .application(this)
-            .build()
-            .inject(this)
     }
 
-    override fun activityInjector() = dispatchingAndroidInjector
+
 }

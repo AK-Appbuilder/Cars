@@ -1,26 +1,21 @@
 package com.sevenpeakssoftware.cars.viewmodel
 
-import androidx.annotation.NonNull
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.google.common.truth.Truth.assertThat
 import com.sevenpeakssoftware.cars.data.Article
-import com.sevenpeakssoftware.cars.repository.ArticlesRepo
+import com.sevenpeakssoftware.cars.repository.DefaultArticlesRepo
 import com.sevenpeakssoftware.cars.repository.Resource
 import com.sevenpeakssoftware.cars.utils.LiveDataTestUtil
-import com.sevenpeakssoftware.cars.utils.mock
-import io.reactivex.BackpressureStrategy
-import io.reactivex.Emitter
 import io.reactivex.Flowable
-import org.junit.runner.RunWith
-import org.junit.runners.JUnit4
-import org.mockito.Mock
-import org.mockito.Mockito.*
-import org.mockito.MockitoAnnotations
-import io.reactivex.schedulers.Schedulers
 import io.reactivex.android.plugins.RxAndroidPlugins
+import io.reactivex.schedulers.Schedulers
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
+import org.junit.runner.RunWith
+import org.junit.runners.JUnit4
+import org.mockito.Mockito.*
+import com.sevenpeakssoftware.cars.utils.mock
 
 @RunWith(JUnit4::class)
 class ArticleViewModelTest {
@@ -30,7 +25,7 @@ class ArticleViewModelTest {
 
     private lateinit var resource: Resource<out List<Article>>
 
-    private var articleRepo = mock(ArticlesRepo::class.java)
+    private var articleRepo = mock(DefaultArticlesRepo::class.java)
 
     @Rule
     @JvmField
